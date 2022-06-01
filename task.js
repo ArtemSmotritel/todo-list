@@ -1,6 +1,7 @@
 function getHTMLforTask(task) {
   const { id, name, description, done, due_date, list_id } = task;
   const taskHTML = `<section class="task" id="task-${id}">
+    <span class="task__delete"></span>
     ${statusHTML(id, done, name)}    
     ${dateHTML(due_date, done)}
     ${descriptionHTML(description)}
@@ -60,10 +61,6 @@ function statusHTML(id, done, name) {
             value="false"
             ${done ? "checked" : ""}
         />
-        <span 
-            id="checkbox-task-${id}" 
-            class="task__custom-checkbox">
-        </span>    
-        <label class="task__name" for="task-${id}">${name}</label>
+        <label class="task__name" for="task-${id}">${name}</label>        
     </div>`;
 }
