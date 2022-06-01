@@ -24,7 +24,7 @@ function insertHTML(element, html) {
 
 function dateHTML(dueDate, done) {
   const today = new Date();
-  
+
   let overDue = " task__date_overdue";
   if (done || !dueDate || dueDate > today) {
     overDue = "";
@@ -58,12 +58,12 @@ function statusHTML(id, done, name) {
             name="done"
             class="task__checkbox"
             value="false"
-            ${done ? 'checked' : ''}
+            ${done ? "checked" : ""}
         />
         <span 
             id="checkbox-task-${id}" 
             class="task__custom-checkbox">
         </span>    
         <label class="task__name" for="task-${id}">${name}</label>
-    </div>`
+    </div>`;
 }

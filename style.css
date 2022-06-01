@@ -53,8 +53,8 @@ body {
   padding: 0 30px;
 }
 
-.task__date {      
-  margin: 0;  
+.task__date {
+  margin: 0;
 }
 
 .task__date_overdue {
@@ -72,8 +72,7 @@ body {
 
   padding-top: 10px;
   width: 100%;
-  box-sizing: border-box;  
-  /* border-top: 8px solid  #9ea3a9; */
+  box-sizing: border-box;
 }
 
 .task__status_done > .task__name {
