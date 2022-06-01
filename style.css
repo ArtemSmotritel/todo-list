@@ -3,16 +3,18 @@ html {
   padding: 0;
   margin: 0;
   background-color: #3a4750;
-  color: #d3d6db;
+  color: #303841;
   height: 100vh;
 
   font: normal normal 400 27px/32px "Public Sans", sans-serif;
 }
 
 body {
+  padding: 20px;
+
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-flow: row wrap;
 }
 
 .list {
@@ -26,8 +28,9 @@ body {
   padding: 10px;
 }
 
-.list h2 {
+.list__name {
   font: normal normal 800 200%/200% "Fira Sans", sans-serif;
+
   color: #303841;
   margin: 0;
 }
@@ -39,55 +42,60 @@ body {
   gap: 10px;
 
   width: 900px;
-  background-color: #303841;
+  background-color: white;
   border-radius: 25px;
   padding: 20px 0;
 }
 
 .task__date,
-.task__name-done,
+.task__status,
 .task__description {
   padding: 0 30px;
 }
 
-.task__date {
-  box-sizing: border-box;
-  border-bottom: 5px solid #be3144;
+.task__date {      
+  margin: 0;  
+}
+
+.task__date_overdue {
+  color: #be3144;
+}
+
+.task__name {
+  font: normal normal 600 150%/100% "Kufam", sans-serif;
+}
+
+.task__status {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+
+  padding-top: 10px;
   width: 100%;
-  padding-bottom: 10px;
+  box-sizing: border-box;  
+  /* border-top: 8px solid  #9ea3a9; */
 }
 
-.task label {
-  font: normal normal 600 150%/150% "Kufam", sans-serif;
-}
-
-@keyframes check-animation {
-  0% {
-    height: 0;
-    width: 0;
-  }
-  25% {
-    height: 0;
-    width: 10px;
-  }
-  50% {
-    height: 20px;
-    width: 10px;
-  }
-}
-
-input:checked + span:after {
-  -webkit-animation: check-animation 0.8s;
-  -moz-animation: check-animation 0.8s;
-  -o-animation: check-animation 0.8s;
-  animation: check-animation 0.8s;
-  border-color: #555;
-}
-
-input:checked + :after {
-  border-color: #444;
+.task__status_done > .task__name {
+  color: #9ea3a9;
+  text-decoration: line-through;
 }
 
 .task__description {
   margin: 0;
+  max-height: 50px;
+  overflow: hidden;
+  color: #565a60;
+  transition: max-height 1s ease-in-out;
+}
+
+.task__description:hover {
+  max-height: 300px;
+}
+
+/* Checkbox */
+
+.task__checkbox {
+  width: 24px;
+  height: 24px;
 }
