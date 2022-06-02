@@ -1,7 +1,7 @@
 function insertList(className) {
   const listElement = document.createElement("section");
   listElement.className = className;
-  listElement.appendChild(getListNameElement('A List'));
+  listElement.appendChild(getListNameElement('All Tasks'));
   listElement.addEventListener("click", deleteTaskElement);
   listElement.addEventListener("click", checkTask);
 

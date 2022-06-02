@@ -17,14 +17,53 @@
   <body>
     <header>
       <h1 class="header__title">TODO list</h1>
+      <button class="header__show-form">Add new task</button>
       <div class="header__show-tasks">
-        <label for="checkbox-all-tasks" class="header__label">Show all tasks</label>
-        <input type="checkbox" id="checkbox-all-tasks" class="header__checkbox">
+        <label for="checkbox-all-tasks" class="header__label"
+          >Show all tasks</label
+        >
+        <input
+          type="checkbox"
+          id="checkbox-all-tasks"
+          class="header__checkbox"
+        />
       </div>
     </header>
-    <main class="main-content">
+    <div class="divider-layer"></div>
+    <form name="add-task" class="add-task-form">
+      <label for="task-name" class="add-task-form__name-label">Name</label>
+      <input
+        type="text"
+        name="name"
+        id="task-name"
+        placeholder="task name"
+        class="add-task-form__name-field"
+        required
+      />
 
-    </main>
+      <label for="task-description" class="add-task-form__description-label"
+        >Description</label
+      >
+      <textarea
+        name="description"
+        id="task-description"
+        class="add-task-form__description-field"
+        placeholder="task description"
+      ></textarea>
+
+      <label for="task-due-date" class="add-task-form__due-date-label"
+        >Due date</label
+      >
+      <input
+      name="due_date"
+        type="date"
+        id="task-due-date"
+        class="add-task-form__due-date-field"
+      />
+
+      <button type="submit" class="add-task-form__button">Add</button>
+    </form>
+    <main class="main-content"></main>
     <script src="tasks.js"></script>
     <script src="list.js"></script>
     <script src="task.js"></script>

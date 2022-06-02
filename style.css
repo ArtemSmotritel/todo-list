@@ -15,6 +15,24 @@ html {
   flex-flow: row wrap;
 }
 
+.divider-layer {
+  display: none;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #303841;
+  opacity: 80%;
+}
+
+.divider-layer_show {
+  display: block;
+}
+
+/* Header */
+
 header {  
   color: white;
   display: flex;
@@ -38,10 +56,81 @@ header {
   margin-right: 15px;
 }
 
+.header__show-form {
+  font: normal normal 600 150%/100% "Kufam", sans-serif;
+  height: 70px;
+  width: 370px;
+  padding: 15px 10px;
+  border-radius: 25px;
+  transition: height 0.2s, width 0.2s, font 0.1s;
+}
+
+.header__show-form:hover {
+  height: 80px;
+  width: 400px;
+  font: 165%/100% "Kufam", sans-serif;
+}
+
 .header__checkbox {
   height: 45px;
   width: 45px;
 }
+
+/* Form */
+
+.add-task-form {  
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  margin-bottom: 30%;
+  z-index: 3;
+  background-color: white;  
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  padding: 15px;
+  border-radius: 25px;
+  border: 5px solid #be3144;
+  display: none;
+}
+
+.add-task-form_show {
+  display: flex;
+}
+
+.add-task-form > input,
+.add-task-form > textarea {
+  margin-bottom: 15px;
+  font: normal normal 400 27px/32px "Public Sans", sans-serif;
+}
+
+.add-task-form > label {
+  font: normal normal 600 150%/100% "Kufam", sans-serif;
+}
+
+.add-task-form > input {
+  border-radius: 10px;  
+}
+
+.add-task-form__description-field {
+  min-height: 200px;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.add-task-form__button {
+  font: normal normal 600 150%/110% "Kufam", sans-serif;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+
+
+/* Task */
 
 .task {
   display: flex;
@@ -109,7 +198,7 @@ header {
   left: 550px;
   width: 50px;
   height: 50px;
-  transition: width 0.3s, height 0.3s, top 0.3s;
+  transition: width 0.2s, height 0.2s, top 0.2s;
 }
 
 .task__delete:hover {
@@ -129,6 +218,8 @@ header {
 .task__description:hover {
   max-height: 300px;
 }
+
+/* List */
 
 .list {
   margin: auto;

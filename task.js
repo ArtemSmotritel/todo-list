@@ -19,8 +19,9 @@ function getTaskElement(task) {
   return taskElement;
 }
 
-function dateHTML(dueDate) {
+function dateHTML(dueDateStringOrDate) {
   const today = new Date();
+  const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
 
   let overDue = " task__date_overdue";
   if (!dueDate || dueDate > today) {
@@ -72,4 +73,32 @@ function checkTask(event) {
     const taskElement = event.target.parentElement.parentElement;
     taskElement.classList.toggle("task_done");
   }
+}
+
+function toggleForm(event, hide) {
+  const form = document.forms["add-task"];
+  const divider = document.querySelector(".divider-layer");
+  if (event.target.className === "header__show-form" || hide) {    
+    event.preventDefault();
+
+    console.log(event);
+    form.classList.toggle("add-task-form_show");
+    divider.classList.toggle("divider-layer_show");
+  } else if (event.key === 'Escape') {
+    console.log('escaped');
+    // form.classList.remove("add-task-form_show");
+    // divider.classList.remove("divider-layer_show");
+  }
+}
+
+function addNewTask(event) {
+  event.preventDefault();
+  const form = document.forms["add-task"];
+  const formData = new FormData(form);
+  const taskObject = Object.fromEntries(formData.entries());  
+
+  insertTasks([taskObject], ".list");
+
+  form.reset();
+  toggleForm(event, true);
 }
