@@ -9,30 +9,38 @@ html {
   font: normal normal 400 27px/32px "Public Sans", sans-serif;
 }
 
-body {
-  padding: 20px;
-
+.main-content {
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
 }
 
-.list {
-  margin: auto;
+header {  
+  color: white;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #d3d6db;
-  border-radius: 25px;
-  padding: 10px;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 50px 20px;
 }
 
-.list__name {
-  font: normal normal 800 200%/200% "Fira Sans", sans-serif;
-
-  color: #303841;
+.header__title {
+  font: normal normal 800 300%/100% "Fira Sans", sans-serif;
   margin: 0;
+}
+
+.header__show-tasks {
+  display: flex;
+  align-items: center;
+}
+
+.header__label {
+  font: normal normal 600 180%/100% "Kufam", sans-serif;
+  margin-right: 15px;
+}
+
+.header__checkbox {
+  height: 45px;
+  width: 45px;
 }
 
 .task {
@@ -46,6 +54,10 @@ body {
   border-radius: 25px;
   padding: 20px 0;
   position: relative;
+}
+
+.task_done {
+  display: none;
 }
 
 .task__date,
@@ -69,11 +81,11 @@ body {
 .task__status {
   display: flex;
   align-items: center;
-  gap: 10px;  
-  
+  gap: 10px;
+
   padding-top: 10px;
   padding-right: 20px;
-  width: 100%;  
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -82,20 +94,28 @@ body {
   height: 24px;
 }
 
-.task__status_done > .task__name {
+.task_done > .task__status > .task__name {
   color: #9ea3a9;
   text-decoration: line-through;
+}
 
+.task_done > .task__date {
+  color: #303841;
 }
 
 .task__delete {
-  position: absolute;  
+  position: absolute;
   top: 0px;
-  left: 560px; 
-  width: 40px;
-  height: 40px;
-  background-color: #be3144;
-  border-radius: 2px 25px 2px 10px;
+  left: 550px;
+  width: 50px;
+  height: 50px;
+  transition: width 0.3s, height 0.3s, top 0.3s;
+}
+
+.task__delete:hover {
+  top: -5px;
+  width: 55px;
+  height: 55px;
 }
 
 .task__description {
@@ -110,3 +130,24 @@ body {
   max-height: 300px;
 }
 
+.list {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #d3d6db;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.list_show-done > .task_done {
+  display: block;
+}
+
+.list__name {
+  font: normal normal 800 200%/200% "Fira Sans", sans-serif;
+
+  color: #303841;
+  margin: 0;
+}
