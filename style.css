@@ -58,10 +58,11 @@ header {
 
 .header__show-form {
   font: normal normal 600 150%/100% "Kufam", sans-serif;
+  background-color: white;
   height: 70px;
   width: 370px;
   padding: 15px 10px;
-  border-radius: 25px;
+  border-radius: 25px;  
   transition: width 0.2s, font 0.1s;
 }
 

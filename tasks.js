@@ -2,7 +2,7 @@ const today = new Date();
 const yesterday = new Date(new Date().setDate(today.getDate() - 1));
 const tomorrow = new Date(new Date().setDate(today.getDate() + 1));
 
-const tasks = [
+const tasksInMemory = [
   {
     id: 1,
     name: "To eat in a restaurant",

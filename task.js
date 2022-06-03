@@ -1,9 +1,16 @@
-function insertTasks(tasks, listClass) {
+async function insertTasks(listClass) {
   const list = document.querySelector(listClass);
-  tasks.forEach((task) => {
-    const taskElement = getTaskElement(task);
-    list.appendChild(taskElement);
-  });
+  const allTasksEndpoint = "http://localhost:3001/lists/1/tasks";
+
+  try {
+    let tasks = await getTasks(allTasksEndpoint);
+    tasks.forEach((task) => {
+      const taskElement = getTaskElement(task);
+      list.appendChild(taskElement);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function getTaskElement(task) {
@@ -32,7 +39,13 @@ function formatDate(dueDateStringOrDate) {
   const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
 
   let overDue = " task__date_overdue";
-  if (!dueDate || dueDate > today) {
+  if (
+    !dueDate ||
+    dueDate > today ||
+    (dueDate.getDate() == today.getDate() &&
+      dueDate.getMonth() == today.getMonth() &&
+      dueDate.getFullYear() == today.getFullYear())
+  ) {
     overDue = "";
   }
 
@@ -79,4 +92,8 @@ function checkTask(event) {
     const taskElement = event.target.parentElement.parentElement;
     taskElement.classList.toggle("task_done");
   }
+}
+
+async function getTasks(endpoint) {
+  return fetch(endpoint).then((res) => res.json());
 }

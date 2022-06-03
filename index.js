@@ -1,9 +1,11 @@
-const header = document.querySelector('header');
-const addTaskForm = document.forms['add-task'];
-header.addEventListener('click', toggleDoneTasks);
-header.addEventListener('click', toggleForm);
-addTaskForm.addEventListener('submit', addNewTask);
-addTaskForm.addEventListener('click', toggleForm);
+const header = document.querySelector("header");
+const addTaskForm = document.forms["add-task"];
 
-insertList('list', 'All tasks');
-insertTasks(tasks, '.list');
+header.addEventListener("click", toggleDoneTasks);
+header.addEventListener("click", toggleForm);
+addTaskForm.addEventListener("submit", addNewTask);
+addTaskForm.addEventListener("click", toggleForm);
+
+insertList("list", "All tasks");
+insertTasks('.list');
+
