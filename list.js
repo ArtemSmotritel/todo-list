@@ -1,8 +1,8 @@
 function insertList(className) {
   const listElement = document.createElement("section");
   listElement.className = className;
-  listElement.appendChild(getListNameElement('All Tasks'));
-  listElement.addEventListener("click", deleteTaskElement);
+  listElement.appendChild(getListNameElement('Undone tasks'));
+  listElement.addEventListener("click", deleteTaskInDOM);
   listElement.addEventListener("click", checkTask);
 
   const mainContent = document.querySelector(".main-content");

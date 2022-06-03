@@ -6,6 +6,5 @@ header.addEventListener("click", toggleForm);
 addTaskForm.addEventListener("submit", addNewTask);
 addTaskForm.addEventListener("click", toggleForm);
 
-insertList("list", "All tasks");
-insertTasks('.list');
-
+insertList("list");
+insertTasks(".list");
