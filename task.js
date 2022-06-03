@@ -2,15 +2,16 @@ async function insertTasks(listClass) {
   const list = document.querySelector(listClass);
   const allTasksEndpoint = "http://localhost:3001/lists/1/tasks";
 
+  let tasks;
   try {
-    let tasks = await getTasks(allTasksEndpoint);
-    tasks.forEach((task) => {
-      const taskElement = getTaskElement(task);
-      list.appendChild(taskElement);
-    });
+    tasks = await getTasks(allTasksEndpoint);
   } catch (error) {
     console.log(error);
   }
+  tasks.forEach((task) => {
+    const taskElement = getTaskElement(task);
+    list.appendChild(taskElement);
+  });
 }
 
 function getTaskElement(task) {
@@ -96,4 +97,11 @@ function checkTask(event) {
 
 async function getTasks(endpoint) {
   return fetch(endpoint).then((res) => res.json());
+}
+
+async function checkTask(id) {
+  const endpoint = `http://localhost:3001/tasks${id}`;
+  fetch(endpoint, {
+    method: 'PATCH'
+  })
 }
