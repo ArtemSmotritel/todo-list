@@ -32,7 +32,7 @@ function formatDate(dueDateStringOrDate) {
   const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
 
   let overDue = " task__date_overdue";
-  if (!dueDate || dueDate > today) {
+  if (!dueDate || dueDate >= today) {
     overDue = "";
   }
 
