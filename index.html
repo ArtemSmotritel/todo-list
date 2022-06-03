@@ -31,16 +31,20 @@
     </header>
     <div class="divider-layer"></div>
     <form name="add-task" class="add-task-form">
+      <img
+        src="./remove.png"
+        alt="hide-form button"
+        class="add-task-form__hide-form"
+      />
       <label for="task-name" class="add-task-form__name-label">Name</label>
       <input
         type="text"
         name="name"
+        required
         id="task-name"
         placeholder="task name"
-        class="add-task-form__name-field"
-        required
+        class="add-task-form__name-field"        
       />
-
       <label for="task-description" class="add-task-form__description-label"
         >Description</label
       >
@@ -55,7 +59,7 @@
         >Due date</label
       >
       <input
-      name="due_date"
+        name="due_date"
         type="date"
         id="task-due-date"
         class="add-task-form__due-date-field"
@@ -67,6 +71,7 @@
     <script src="tasks.js"></script>
     <script src="list.js"></script>
     <script src="task.js"></script>
+    <script src="form.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

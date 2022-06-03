@@ -12,7 +12,7 @@ function getTaskElement(task) {
   const taskElement = document.createElement("section");
   taskElement.className = `task${done ? " task_done" : ""}`;
   taskElement.innerHTML = `<img src="./trash-bin (1).png" alt="a trash can button" class="task__delete">
-  ${statusHTML(id, done, name)}    
+  ${statusHTML(id, done, name)}
   ${dateHTML(due_date)}
   ${descriptionHTML(description)}`;
 
@@ -20,6 +20,14 @@ function getTaskElement(task) {
 }
 
 function dateHTML(dueDateStringOrDate) {
+  const { overDue, dateFormmated } = formatDate(dueDateStringOrDate);
+
+  return `<p class="task__date${overDue}">
+    Due date<span class="task__due-date">${dateFormmated}</span>
+  </p>`;
+}
+
+function formatDate(dueDateStringOrDate) {
   const today = new Date();
   const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
 
@@ -32,9 +40,10 @@ function dateHTML(dueDateStringOrDate) {
     ? ": " + Intl.DateTimeFormat("en-US").format(dueDate)
     : " is not set";
 
-  return `<p class="task__date${overDue}">
-    Due date<span class="task__due-date">${dateFormmated}</span>
-  </p>`;
+  return {
+    overDue,
+    dateFormmated,
+  };
 }
 
 function descriptionHTML(description) {
@@ -47,6 +56,7 @@ function descriptionHTML(description) {
 function statusHTML(id, done, name) {
   return `<div class="task__status">
         <input
+            id="task-${id}"
             type="checkbox"
             name="done"
             class="task__checkbox"
@@ -57,11 +67,7 @@ function statusHTML(id, done, name) {
 }
 
 function deleteTaskElement(event) {
-  deleteElement(event, "task__delete");
-}
-
-function deleteElement(event, classToDelete) {
-  if (event.target.className === classToDelete) {
+  if (event.target.className === "task__delete") {
     const parentOfAButton = event.target.parentElement;
     const parentOfTheParent = parentOfAButton.parentElement;
     parentOfTheParent.removeChild(parentOfAButton);
@@ -73,32 +79,4 @@ function checkTask(event) {
     const taskElement = event.target.parentElement.parentElement;
     taskElement.classList.toggle("task_done");
   }
-}
-
-function toggleForm(event, hide) {
-  const form = document.forms["add-task"];
-  const divider = document.querySelector(".divider-layer");
-  if (event.target.className === "header__show-form" || hide) {    
-    event.preventDefault();
-
-    console.log(event);
-    form.classList.toggle("add-task-form_show");
-    divider.classList.toggle("divider-layer_show");
-  } else if (event.key === 'Escape') {
-    console.log('escaped');
-    // form.classList.remove("add-task-form_show");
-    // divider.classList.remove("divider-layer_show");
-  }
-}
-
-function addNewTask(event) {
-  event.preventDefault();
-  const form = document.forms["add-task"];
-  const formData = new FormData(form);
-  const taskObject = Object.fromEntries(formData.entries());  
-
-  insertTasks([taskObject], ".list");
-
-  form.reset();
-  toggleForm(event, true);
 }
