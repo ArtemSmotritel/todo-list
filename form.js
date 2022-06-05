@@ -9,16 +9,46 @@ function toggleForm(event, hide) {
   }
 }
 
-function addNewTask(event) {
+async function addNewTask(event) {
   event.preventDefault();
   const form = document.forms["add-task"];
+  const button = document.querySelector('.add-task-form__button');
+  const spinner = document.querySelector('.add-task-form__lds-ellipsis');
   const formData = new FormData(form);
   const taskObject = Object.fromEntries(formData.entries());
+  
+  button.classList.toggle('add-task-form__button_hide');
+  spinner.classList.toggle('add-task-form__lds-ellipsis_show');
+  
+  const response = await addNewTaskOnServer(taskObject);
+  if (response.ok) {
+    const taskWithId = await response.json();
+    addNewTaskInDOM(taskWithId);
+    //await insertAllTasks('.list');
+    spinner.classList.toggle('add-task-form__lds-ellipsis_show');
+    button.classList.toggle('add-task-form__button_hide');
+    form.reset();
+    toggleForm(event, true);
+  } else {
+    // TODO reset the form
+  }
+}
 
-  insertTasks([taskObject], ".list");
+function addNewTaskInDOM(taskObject) {
+  const listElement = document.querySelector('.list');
+  const taskElement = getTaskElement(taskObject);
+  listElement.appendChild(taskElement);
+}
 
-  form.reset();
-  toggleForm(event, true);
+function addNewTaskOnServer(taskObject) {
+  const endpoint = 'http://localhost:3001/lists/1/tasks';
+  fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(taskObject),
+  })
 }
 
 function needToToggle(targetClass, hide) {

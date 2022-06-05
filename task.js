@@ -1,7 +1,8 @@
-async function insertTasks(listClass) {
+async function insertAllTasks(listClass) {
   const list = document.querySelector(listClass);
+  list.innerHTML = "";
+  tasksInMemory = [];
   const allTasksEndpoint = "http://localhost:3001/lists/1/tasks?all=true";
-  const undoneTasksEndpoint = "http://localhost:3001/lists/1/tasks";
 
   let tasks;
   try {
