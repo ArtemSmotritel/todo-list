@@ -1,8 +1,9 @@
 function insertList(className) {
   const listElement = document.createElement("section");
+  const listName = getListNameElement("Undone tasks");
   listElement.className = className;
-  listElement.appendChild(getListNameElement('Undone tasks'));
-  listElement.addEventListener("click", deleteTaskInDOM);
+  listElement.appendChild(listName);
+  listElement.addEventListener("click", deleteTask);
   listElement.addEventListener("click", checkTask);
 
   const mainContent = document.querySelector(".main-content");
@@ -17,10 +18,10 @@ function getListNameElement(listName) {
 }
 
 function toggleDoneTasks(event) {
-    if (event.target.className === 'header__checkbox') {    
-        let listName = event.target.checked ? 'All Tasks' : 'Undone tasks';    
-        const listElement = document.querySelector('.list');
-        listElement.querySelector('.list__name').textContent = listName;
-        listElement.classList.toggle('list_show-done');
-    }
+  if (event.target.className === "header__checkbox") {
+    let listName = event.target.checked ? "All Tasks" : "Undone tasks";
+    const listElement = document.querySelector(".list");
+    document.querySelector(".list__name").textContent = listName;
+    listElement.classList.toggle("list_show-done");
+  }
 }

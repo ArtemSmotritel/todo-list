@@ -1,6 +1,5 @@
 async function insertAllTasks(listClass) {
   const list = document.querySelector(listClass);
-  list.innerHTML = "";
   tasksInMemory = [];
   const allTasksEndpoint = "http://localhost:3001/lists/1/tasks?all=true";
 
@@ -98,7 +97,7 @@ function deleteTask(event) {
       deletedTask = tasksInMemory.splice(index, 1);
     } catch (error) {
       console.log(error);
-      tasksInMemory.push(deletedTask);
+      //tasksInMemory.push(deletedTask);
     }
   }
 }
@@ -135,7 +134,7 @@ function checkTaskInDOM(taskElement) {
   taskElement.classList.toggle("task_done");
 }
 
-async function checkTaskOnServer(id, newDone) {
+function checkTaskOnServer(id, newDone) {
   const endpoint = `http://localhost:3001/tasks/${id}`;
   fetch(endpoint, {
     method: "PATCH",
