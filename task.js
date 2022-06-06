@@ -2,19 +2,16 @@ async function insertAllTasks(listClass) {
   const list = document.querySelector(listClass);
   list.innerHTML = "";
   tasksInMemory = [];
-  const allTasksEndpoint = "http://localhost:3001/lists/1/tasks?all=true";
 
-  let tasks;
   try {
-    tasks = await getTasks(allTasksEndpoint);
+    let tasks = await getTasks();
     tasks.forEach((task) => {
       tasksInMemory.push(task);
       const taskElement = getTaskElement(task);
       list.appendChild(taskElement);
     });
   } catch (error) {
-    console.log(error);
-    // TODO: error handling, e.x. failed to connect screen or 'failed' inside list section
+    errorHandling(error, list);
   }
 }
 
@@ -152,10 +149,14 @@ function findTaskInMemory(id) {
   return tasksInMemory.find((t) => (t.id = id));
 }
 
-async function getTasks(endpoint) {
-  return fetch(endpoint)
+async function getTasks() {
+  const allTasksEndpoint = "http://localhost:3001/lists/1/tasks?all=true";
+  return fetch(allTasksEndpoint)
     .then((res) => res.json())
     .catch((error) => {
-      throw "Something went very wrong...";
+      throw {
+        message:
+          "Something went very wrong...\n\nUnable to connect to the server.\nPlease, come back later",
+      };
     });
 }

@@ -28,3 +28,10 @@ function toggleDoneTasks(event) {
     listElement.classList.toggle("list_show-done");
   }
 }
+
+function errorHandling(error, element) {
+  const errorBanner = document.createElement('h3');
+    errorBanner.innerText = error.message;
+    errorBanner.className = 'list__error';
+    element.appendChild(errorBanner);
+}

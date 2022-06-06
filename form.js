@@ -20,15 +20,26 @@ async function addNewTask(event) {
   button.classList.toggle("add-task-form__button_hide");
   spinner.classList.toggle("add-task-form__lds-ellipsis_show");
 
-  const response = await addNewTaskOnServer(taskObject);
-  if (response.ok) {
-    await insertAllTasks(".list__content");
+  try {
+    const response = await addNewTaskOnServer(taskObject);
+    if (response.ok) {
+      await insertAllTasks(".list__content");
+      setTimeout(() => {
+        spinner.classList.toggle("add-task-form__lds-ellipsis_show");
+        button.classList.toggle("add-task-form__button_hide");
+        form.reset();
+        toggleForm(event, true);
+      }, 700);
+    } else {
+      spinner.classList.toggle("add-task-form__lds-ellipsis_show");
+      errorHandling(
+        { message: "Unable to add task on the server, sorry" },
+        form
+      );
+    }
+  } catch (error) {
     spinner.classList.toggle("add-task-form__lds-ellipsis_show");
-    button.classList.toggle("add-task-form__button_hide");
-    form.reset();
-    toggleForm(event, true);
-  } else {
-    // TODO reset the form
+    errorHandling(error, form);
   }
 }
 
@@ -40,6 +51,10 @@ function addNewTaskOnServer(taskObject) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(taskObject),
+  }).catch((error) => {
+    throw {
+      message: "Unable to send task to the server, sorry",
+    };
   });
 }
 
