@@ -7,4 +7,4 @@ addTaskForm.addEventListener("submit", addNewTask);
 addTaskForm.addEventListener("click", toggleForm);
 
 insertList("list");
-insertAllTasks(".list");
+insertAllTasks(".list__content");

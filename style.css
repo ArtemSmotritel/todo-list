@@ -4,7 +4,7 @@ html {
   margin: 0;
   background-color: #3a4750;
   color: #303841;
-  height: 100vh;
+  height: auto;
 
   font: normal normal 400 27px/32px "Public Sans", sans-serif;
 }
@@ -14,7 +14,7 @@ html {
   justify-content: center;
   flex-flow: row wrap;
 
-  margin-top: 50px;
+  margin: 50px 0;
 }
 
 .divider-layer {
@@ -327,7 +327,14 @@ header {
   padding: 10px;
 }
 
-.list_show-done > .task_done {
+.list__content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list_show-done .task_done {
   display: block;
 }
 
