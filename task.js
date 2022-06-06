@@ -95,7 +95,8 @@ function deleteTask(event) {
       deletedTask = tasksInMemory.splice(index, 1);
     } catch (error) {
       console.log(error);
-      //tasksInMemory.push(deletedTask);
+      tasksInMemory.push(deletedTask);
+      addNewTaskInDOM(deletedTask);
     }
   }
 }
@@ -107,22 +108,23 @@ function deleteTaskInDOM(taskElement) {
 
 function deleteTaskOnServer(id) {
   const endpoint = `http://localhost:3001/tasks/${id}`;
-  fetch(endpoint, {
+  return fetch(endpoint, {
     method: "DELETE",
   });
 }
 
-function checkTask(event) {
+async function checkTask(event) {
   if (event.target.className === "task__checkbox") {
     const taskElement = event.target.parentElement.parentElement;
     const id = taskElement.id;
     const newDone = !taskElement.classList.contains("task_done");
     checkTaskInDOM(taskElement);
-
+    
     try {
-      checkTaskOnServer(id, newDone);
+      await checkTaskOnServer(id, newDone);
     } catch (error) {
-      console.log(error);
+      const checkbox = taskElement.querySelector('input');
+      checkbox.checked = !newDone;
       checkTaskInDOM(taskElement);
     }
   }
@@ -134,7 +136,7 @@ function checkTaskInDOM(taskElement) {
 
 function checkTaskOnServer(id, newDone) {
   const endpoint = `http://localhost:3001/tasks/${id}`;
-  fetch(endpoint, {
+  return fetch(endpoint, {
     method: "PATCH",
     body: JSON.stringify({
       done: newDone,

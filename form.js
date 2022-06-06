@@ -20,15 +20,22 @@ async function addNewTask(event) {
   toggleSpinner(spinner);
 
   try {
+    const timeStart = new Date().getTime();
     const response = await addNewTaskOnServer(taskObject);
     if (response.ok) {
-      await insertAllTasks(".list__content");
+      const { id } = await response.json(); 
+      taskObject.id = id;
+      addNewTaskInDOM(taskObject);
+      tasksInMemory.push(taskObject);
+      
+      const timeEnd= new Date().getTime();
+      const diff = timeEnd - timeStart;
       setTimeout(() => {
         toggleSpinner(spinner);
         toggleButton(button);
         form.reset();
         toggleForm(event, true);
-      }, 700);
+      }, diff > 450 ? 0 : 450 - diff);
     } else {
       toggleSpinner(spinner);
       errorHandling(
@@ -40,6 +47,12 @@ async function addNewTask(event) {
     toggleSpinner(spinner);
     errorHandling(error, form);
   }
+}
+
+function addNewTaskInDOM(taskObject) {  
+  const listElement = document.querySelector(".list__content");
+  const taskElement = getTaskElement(taskObject);
+  listElement.appendChild(taskElement);
 }
 
 function addNewTaskOnServer(taskObject) {
