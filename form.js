@@ -61,12 +61,13 @@ function needToToggle(targetClass, hide) {
   );
 }
 
-function formatTask(form) {
+function formTask(form) {
   const formData = new FormData(form);
   const taskObject = Object.fromEntries(formData.entries());
   if (!taskObject.due_date) {
     delete taskObject.due_date;
   }
+  return taskObject;
 }
 
 function toggleSpinner(spinner) {
