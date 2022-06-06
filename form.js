@@ -14,31 +14,30 @@ async function addNewTask(event) {
   const form = document.forms["add-task"];
   const button = document.querySelector(".add-task-form__button");
   const spinner = document.querySelector(".add-task-form__lds-ellipsis");
-  const formData = new FormData(form);
-  const taskObject = Object.fromEntries(formData.entries());
+  const taskObject = formTask(form);
 
-  button.classList.toggle("add-task-form__button_hide");
-  spinner.classList.toggle("add-task-form__lds-ellipsis_show");
+  toggleButton(button);
+  toggleSpinner(spinner);
 
   try {
     const response = await addNewTaskOnServer(taskObject);
     if (response.ok) {
       await insertAllTasks(".list__content");
       setTimeout(() => {
-        spinner.classList.toggle("add-task-form__lds-ellipsis_show");
-        button.classList.toggle("add-task-form__button_hide");
+        toggleSpinner(spinner);
+        toggleButton(button);
         form.reset();
         toggleForm(event, true);
       }, 700);
     } else {
-      spinner.classList.toggle("add-task-form__lds-ellipsis_show");
+      toggleSpinner(spinner);
       errorHandling(
         { message: "Unable to add task on the server, sorry" },
         form
       );
     }
   } catch (error) {
-    spinner.classList.toggle("add-task-form__lds-ellipsis_show");
+    toggleSpinner(spinner);
     errorHandling(error, form);
   }
 }
@@ -51,10 +50,6 @@ function addNewTaskOnServer(taskObject) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(taskObject),
-  }).catch((error) => {
-    throw {
-      message: "Unable to send task to the server, sorry",
-    };
   });
 }
 
@@ -64,4 +59,20 @@ function needToToggle(targetClass, hide) {
     targetClass === "add-task-form__hide-form" ||
     hide
   );
+}
+
+function formatTask(form) {
+  const formData = new FormData(form);
+  const taskObject = Object.fromEntries(formData.entries());
+  if (!taskObject.due_date) {
+    delete taskObject.due_date;
+  }
+}
+
+function toggleSpinner(spinner) {
+  spinner.classList.toggle("add-task-form__lds-ellipsis_show");
+}
+
+function toggleButton(button) {
+  button.classList.toggle("add-task-form__button_hide");
 }
